@@ -20,9 +20,11 @@ typedef struct s_list
 typedef struct s_map
 {
 	char	**grid;
+	int		y_max;
+	int		x_max;
 	int		count_c;
 	int		count_p;
-	int		count_e;	
+	int		count_e;
 }t_map;
 
 
@@ -44,6 +46,7 @@ typedef struct s_data
 	t_image	img;
 	t_list	*list;
 	char	**av;
+	int		map_fd;
 	int		ac;
 	int		p_x;
 	int		p_y;

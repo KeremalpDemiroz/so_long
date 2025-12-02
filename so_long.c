@@ -4,6 +4,12 @@
 #include <stdio.h>
 #include <fcntl.h>
 
+void	print_error(char *err_msg)
+{
+	ft_putendl_fd("Error", 2);
+	ft_putendl_fd(err_msg, 2);
+	exit(EXIT_FAILURE);
+}
 void	start_game_data(t_game *game)
 {
 	game->mlx = NULL;
@@ -45,11 +51,7 @@ void	check_map_name(char **av)
 	i = 0;
 	ext = ".ber";
 	if (!av[1] || ft_strlen(av[1]) < 4)
-	{
-		ft_putendl_fd("Error", 2);
-		ft_putendl_fd("File name doesn't exist", 2);
-		exit(EXIT_FAILURE);
-	}
+		print_error("File name doesn't exist");
 	while (av[1][i])
 	{
 		j = 0;
@@ -59,9 +61,7 @@ void	check_map_name(char **av)
 		return ;
 		i++;
 	}
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd("File extension is not valid", 2);
-	exit(EXIT_FAILURE);
+	print_error("File extension is not valid");
 }
 
 void	count_features(char *line, t_map *map)
@@ -69,7 +69,8 @@ void	count_features(char *line, t_map *map)
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line[i] == '1' || line[i] == '0' || line[i] == 'P'
+		|| line[i] == 'C' || line[i] == 'E')
 	{
 		if (line[i] == 'P')
 			map->count_p++;
@@ -79,14 +80,14 @@ void	count_features(char *line, t_map *map)
 			map->count_e++;
 		i++;
 	}
+	if (line[i] == '\0' || line[i] == '\n')
+		return ;
+	else
+	{
+		print_error("Invalid character on map");
+	}
 }
 
-void	print_error(char *err_msg)
-{
-	ft_putendl_fd("Error", 2);
-	ft_putendl_fd(err_msg, 2);
-	exit(EXIT_FAILURE);
-}
 void	free_node(t_list **list)
 {
 	t_list	*temp;
@@ -146,32 +147,43 @@ int	count_node(t_data *data)
 }
 
 
-// void	to_the_grid()
-// {
-// 	while (list)
+void	to_the_grid(t_data *data)
+{
+	t_list	*tmp;
+	int		y;
 
-
-// }
+	y = 0;
+	tmp = data->list;
+	data->map.y_max = count_node(data);
+	data->map.grid = malloc(sizeof(char *) * data->map.y_max + 1);
+	while (tmp)
+	{
+		data->map.grid[y] = tmp->line;
+		y++;
+		tmp = tmp->next;
+	}
+	data->map.grid[y] = NULL;
+}
 
 void	is_it_rectanguler(t_data *data)
 {
 	t_list	*tmp;
-	int		y;
 	int		x;
 
 	tmp = data->list;
 	x = tmp->len;
-	while (tmp)
+	while (tmp->next)
 	{
-		if (tmp->len != x)
+		if (tmp->next->len != x)
 		{
 			free_node(&data->list);
 			print_error("Map is not rectanguler");
 		}
+		x =  tmp->len;
 		tmp = tmp->next;
 	}
 }
-
+	
 void	read_map(t_data *data, int map_fd)
 {
 	char	*line;
@@ -189,21 +201,22 @@ void	read_map(t_data *data, int map_fd)
 		print_error("Map file can not be read");
 }
 
-void	is_it_surrounded(t_data *data)
-{
+// void	is_it_surrounded(t_data *data)
+// {
 
-}
+// }
 
 void	check_map(t_data *data)
 {
-	int	map_fd;
 	char *read;
 
+	if (data->ac > 2)
+		print_error("2 or more maps in arguments");
 	check_map_name(data->av);
-	map_fd = open(data->av[1], O_RDONLY);
-	if (map_fd < 0)
+	data->map_fd = open(data->av[1], O_RDONLY);
+	if (data->map_fd < 0)
 		print_error("Map file can not be read");
-	read_map(data, map_fd);
+	read_map(data, data->map_fd);
 	is_it_rectanguler(data);
 }
 
@@ -212,10 +225,10 @@ int main(int ac,char **av)
 	t_data	data;
 	start_data(&data, av, ac);
 	check_map(&data);
-	// int i  =0;
-	// while (i < 5)
-	// {
-	// 	printf("%s", data.map.grid[i]);
-	// 	i++;
-	// }
+	int i  =0;
+	while (i < 5)
+	{
+		printf("%s", data.map.grid[i]);
+		i++;
+	}
 }
