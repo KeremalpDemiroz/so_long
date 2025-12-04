@@ -6,6 +6,24 @@
 # include <stdio.h>
 # include <fcntl.h>
 
+# define P_F "./textures/walle_front.xpm"
+# define P_B "./textures/walle_back.xpm"
+# define FLOOR "./textures/test_tile_floor.xpm"
+# define WALL "./textures/test_tile_wall.xpm"
+# define COIN "./textures/test_tile_coin.xpm"
+# define E_O "./textures/little_knight_right.xpm"
+# define E_C "./textures/little_knight_left.xpm"
+
+# define ESC 65307
+
+# define W 119
+
+# define A 97
+
+# define S 115
+
+# define D 100
+
 typedef struct s_game
 {
 	void	*mlx;
@@ -39,9 +57,13 @@ typedef struct s_image
 {
 	void	*floor;
 	void	*wall;
-	void	*exit;
 	void	*coin;
-	void	*player;
+	void	*e_o;
+	void	*e_c;
+	void	*p_f;
+	void	*p_b;
+	void	*p_r;
+	void	*p_l;
 
 }t_image;
 
