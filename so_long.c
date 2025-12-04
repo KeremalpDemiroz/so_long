@@ -1,9 +1,4 @@
-#include "minilibx-linux/mlx.h"
 #include "so_long.h"
-#include "sources/libft.h"
-#include <stdio.h>
-#include <fcntl.h>
-
 
 void	all_free(char **split)
 {
@@ -34,6 +29,9 @@ void	free_node(t_list **list)
 	}
 	*list = NULL;
 }
+
+
+
 
 void	clean_game_data(t_game *game)
 {
@@ -80,10 +78,56 @@ void	print_error(char *err_msg, t_data *data)
 	ft_putendl_fd(err_msg, 2);
 	exit(EXIT_FAILURE);
 }
+
+void	add_back(t_list **list, t_list *new)
+{
+	t_list	*temp;
+
+	if (!*list)
+	{
+		*list = new;
+		return ;
+	}
+	temp = *list;
+	while (temp->next)
+		temp = temp->next;
+	temp->next = new;
+}
+
+int	count_node(t_data *data)
+{
+	t_list	*tmp;
+	int		i;
+
+	i = 0;
+	tmp = data->list;
+	while (tmp)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	return (i);
+}
+
+t_list	*new_node(char *line, int len, t_data *data)
+{
+	t_list	*node;
+
+	node = malloc(sizeof(t_list));
+	if (!node)
+		print_error("Map file can not be read", data);
+	node->line = line;
+	node->len = len;
+	node->next = NULL;
+	return (node);
+}
+
 void	start_game_data(t_game *game)
 {
 	game->mlx = NULL;
 	game->win = NULL;
+	game->height = 750;
+	game->width = 1000;
 }
 
 void	start_map_data(t_map *map)
@@ -156,50 +200,6 @@ void	count_features(char *line, t_data *data, int *flag)
 		return ;
 	else
 		*flag = 0;
-}
-
-
-t_list	*new_node(char *line, int len, t_data *data)
-{
-	t_list	*node;
-
-	node = malloc(sizeof(t_list));
-	if (!node)
-		print_error("Map file can not be read", data);
-	node->line = line;
-	node->len = len;
-	node->next = NULL;
-	return (node);
-}
-
-void	add_back(t_list **list, t_list *new)
-{
-	t_list	*temp;
-
-	if (!*list)
-	{
-		*list = new;
-		return ;
-	}
-	temp = *list;
-	while (temp->next)
-		temp = temp->next;
-	temp->next = new;
-}
-
-int	count_node(t_data *data)
-{
-	t_list	*tmp;
-	int		i;
-
-	i = 0;
-	tmp = data->list;
-	while (tmp)
-	{
-		i++;
-		tmp = tmp->next;
-	}
-	return (i);
 }
 
 
@@ -311,7 +311,93 @@ void	check_features(t_data *data)
 	}
 }
 
-void	check_map_size(t_data *data);
+void	get_position(t_data *data)
+{
+	int	x;
+	int	y;
+
+	y = 0;
+	while (y < data->map.y_max)
+	{
+		x = 0;
+		while (x < data->map.x_max)
+		{
+			if (data->map.grid[y][x] == 'P')
+			{
+				data->p_x = x;
+				data->p_y = y;
+			}
+			else if (data->map.grid[y][x] == 'E')
+			{
+				data->e_x = x;
+				data->e_y = y;
+			}
+			x++;
+		}
+		y++;
+	}
+}
+
+char	**create_map_copy(t_data *data)
+{
+	char	**map_copy;
+	int		y;
+
+	y = 0;
+	if (!data->map.grid)
+		print_error("Map file can not be read", data);
+	map_copy = malloc(sizeof(char *) * (data->map.y_max + 1));
+	while (y < data->map.y_max)
+	{
+		map_copy[y] = ft_strdup(data->map.grid[y]);
+		if (!map_copy[y])
+		{
+			all_free(map_copy);
+			print_error("Map file can not be read", data);
+		}
+		y++;
+	}
+	map_copy[y] = NULL;
+	return (map_copy);
+}
+void	flood_fill(char	**map_copy, int x, int y, t_data *data)
+{
+	if (x <= 0 || y <= 0 || x >= data->map.x_max || y >= data->map.y_max)
+		return ;
+	if (map_copy[y][x] == '1')
+		return ;
+	map_copy[y][x] = '1';
+	flood_fill(map_copy, x + 1, y, data);
+	flood_fill(map_copy, x - 1, y, data);
+	flood_fill(map_copy, x, y + 1, data);
+	flood_fill(map_copy, x, y - 1, data);
+}
+
+void	is_it_playable(t_data *data)
+{
+	char	**map_copy;
+	int		x;
+	int		y;
+
+	y = 0;
+	map_copy = create_map_copy(data);
+	flood_fill(map_copy, data->p_x, data->p_y, data);
+	while (map_copy[y])
+	{
+		x = 0;
+		while (map_copy[y][x])
+		{
+			if (map_copy[y][x] != '1' && map_copy[y][x] != '0' && map_copy[y][x] != '\n')
+			{
+				all_free(map_copy);
+				print_error("Map is can not playable", data);
+			}
+			x++;
+		}
+		y++;
+	}
+	all_free(map_copy);
+}
 
 
 void	check_map(t_data *data)
@@ -324,19 +410,30 @@ void	check_map(t_data *data)
 	to_the_grid(data);
 	is_it_surrounded(data);
 	check_features(data);
+	get_position(data);
+	is_it_playable(data);
+}
+
+void	key_handler(int	keycode, t_data *data)
+{
+
 }
 
 int main(int ac,char **av)
 {
 	t_data	data;
+	int		h;
+	int		w;
 
+	h = 64;
+	w = 64;
 	start_data(&data, av, ac);
 	check_map(&data);
-	int i  = 0;
-	while (i < data.map.y_max)
-	{
-		printf("i: %d || %s",i, data.map.grid[i]);
-		i++;
-	}
+	data.game.mlx = mlx_init();
+	data.game.win = mlx_new_window(data.game.mlx, data.game.width,
+		data.game.height, "so_long");
+	data.img.player = mlx_xpm_file_to_image(data.game.mlx, "./textures/walle_front.xpm", &w,&h);
+	mlx_put_image_to_window(data.game.mlx, data.game.win,data.img.player, 0, 0);
+	mlx_loop(data.game.mlx);
 	all_free(data.map.grid);
 }

@@ -1,10 +1,17 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
+# include "minilibx-linux/mlx.h"
+# include "sources/libft.h"
+# include <stdio.h>
+# include <fcntl.h>
+
 typedef struct s_game
 {
 	void	*mlx;
 	void	*win;
+	int		height;
+	int		width;
 
 }t_game;
 
@@ -50,6 +57,8 @@ typedef struct s_data
 	int		ac;
 	int		p_x;
 	int		p_y;
+	int		e_x;
+	int		e_y;
 	int		moves_count;
 
 }t_data;
