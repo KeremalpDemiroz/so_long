@@ -134,6 +134,10 @@ void	start_game_data(t_game *game)
 	game->win = NULL;
 	game->height = 0;
 	game->width = 0;
+	game->w_flag = 0;
+	game->s_flag = 0;
+	game->a_flag = 0;
+	game->d_flag = 0;
 }
 
 void	start_map_data(t_map *map)
@@ -518,6 +522,30 @@ void	get_img_ptr(t_data *data)
 	img_ptr = swap_img_ptr(img_ptr, &data->img.e_o, data);
 }
 
+void	choose_direction(t_data *data, int x, int y)
+{
+	if (!data->game.w_flag && !data->game.s_flag
+		&& !data->game.a_flag && !data->game.d_flag)
+		mlx_put_image_to_window(data->game.mlx,
+			data->game.win, data->img.p_f, x * 64, y * 64);
+	if (data->game.w_flag)
+		mlx_put_image_to_window(data->game.mlx,
+			data->game.win, data->img.p_b, x * 64, y * 64);
+	else if (data->game.s_flag)
+		mlx_put_image_to_window(data->game.mlx,
+			data->game.win, data->img.p_f, x * 64, y * 64);
+	else if (data->game.a_flag)
+		mlx_put_image_to_window(data->game.mlx,
+			data->game.win, data->img.p_l, x * 64, y * 64);
+	else if (data->game.d_flag)
+		mlx_put_image_to_window(data->game.mlx,
+			data->game.win, data->img.p_r, x * 64, y * 64);
+	data->game.w_flag = 0;
+	data->game.s_flag = 0;
+	data->game.a_flag = 0;
+	data->game.d_flag = 0;
+}
+
 void	print_image_to_window(t_data *data, int x, int y)
 {
 	if (data->map.grid[y][x] == '1')
@@ -530,8 +558,7 @@ void	print_image_to_window(t_data *data, int x, int y)
 		mlx_put_image_to_window(data->game.mlx,
 			data->game.win, data->img.e_c, x * 64, y * 64);
 	if (data->map.grid[y][x] == 'P')
-		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_f, x * 64, y * 64);
+		choose_direction(data, x, y);
 	if (data->map.grid[y][x] == 'C')
 		mlx_put_image_to_window(data->game.mlx,
 			data->game.win, data->img.coin, x * 64, y * 64);
@@ -543,7 +570,6 @@ int	render(t_data *data)
 	int	y;
 
 	y = 0;
-	mlx_string_put(data->game.mlx, data->game.win, 64, 64, 0xffff, "number");
 	while (y < data->map.y_max)
 	{
 		x = 0;
@@ -554,7 +580,6 @@ int	render(t_data *data)
 		}
 		y++;
 	}
-	mlx_string_put(data->game.mlx, data->game.win, 64, 64, 0x464646, "number");
 	return (0);
 }
 
@@ -590,13 +615,25 @@ void	update_map(t_data *data, int old_x, int old_y)
 void	player_move(t_data *data, int keycode)
 {
 	if (keycode == W)
+	{
+		data->game.w_flag = 1;
 		data->p_y--;
+	}
 	else if (keycode == S)
+	{
+		data->game.s_flag = 1;
 		data->p_y++;
+	}
 	else if (keycode == A)
+	{
+		data->game.a_flag = 1;
 		data->p_x--;
+	}
 	else if (keycode == D)
+	{
+		data->game.d_flag = 1;
 		data->p_x++;
+	}
 }
 
 int	key_handler(int keycode, void *param)

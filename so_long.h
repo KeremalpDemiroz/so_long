@@ -30,7 +30,10 @@ typedef struct s_game
 	void	*win;
 	int		height;
 	int		width;
-
+	int		w_flag;
+	int		s_flag;
+	int		a_flag;
+	int		d_flag;
 }t_game;
 
 typedef struct s_list
