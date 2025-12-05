@@ -256,10 +256,10 @@ void	is_it_rectanguler(t_data *data)
 	data->map.x_max = x;
 }
 
+
 void	read_map(t_data *data)
 {
 	char	*line;
-	char	*tmp;
 	int		flag;
 
 	flag = 1;
@@ -296,7 +296,7 @@ void	is_it_surrounded(t_data *data)
 			free(check);
 			print_error("Map is not surrounded by walls", data);
 		}
-		else if (ft_strlen(check) > data->map.x_max -3)
+		else if ((int)ft_strlen(check) > data->map.x_max -3)
 		{
 			free(check);
 			print_error("Map is not surrounded by walls", data);
@@ -648,8 +648,10 @@ int	key_handler(int keycode, void *param)
 	if (keycode == 65307)
 		clean_exit(data, NULL);
 	if (keycode == W || keycode == S || keycode == A || keycode == D)
+	{
 		player_move(data, keycode);
-	update_map(data, old_x, old_y);
+		update_map(data, old_x, old_y);
+	}
 	render(data);
 	return (0);
 }
@@ -657,6 +659,7 @@ int	key_handler(int keycode, void *param)
 int	close_window(void	*param)
 {
 	clean_exit(param, NULL);
+	return (0);
 }
 
 void	check_screen_size(t_data *data)
@@ -685,4 +688,5 @@ int	main(int ac, char **av)
 	mlx_expose_hook(data.game.win, render, &data);
 	render(&data);
 	mlx_loop(data.game.mlx);
+	return (0);
 }
