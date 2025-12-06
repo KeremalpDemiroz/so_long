@@ -6,12 +6,12 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define P_F "./textures/walle_front.xpm"
-# define P_B "./textures/walle_back.xpm"
-# define FLOOR "./textures/test_tile_floor.xpm"
-# define WALL "./textures/test_tile_wall.xpm"
-# define COIN "./textures/test_tile_coin.xpm"
-# define E_O "./textures/little_knight_right.xpm"
+# define P_F "./textures/final/walle_front.xpm"
+# define P_B "./textures/final/back_bg.xpm"
+# define FLOOR "./textures/128xf_tile.xpm"
+# define WALL "./textures/final/test_wall.xpm"
+# define COIN "./textures/final/test_coin.xpm"
+# define E_O "./textures/final/temp_ex.xpm"
 # define E_C "./textures/little_knight_left.xpm"
 
 # define ESC 65307

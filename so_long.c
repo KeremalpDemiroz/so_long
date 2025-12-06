@@ -428,8 +428,8 @@ void	check_map(t_data *data)
 	check_features(data);
 	get_position(data);
 	is_it_playable(data);
-	data->game.height = (data->map.y_max) * 64;
-	data->game.width = (data->map.x_max - 1) * 64;
+	data->game.height = (data->map.y_max) * 128;
+	data->game.width = (data->map.x_max - 1) * 128;
 }
 
 void	reinitialize_image(t_data *data)
@@ -500,8 +500,8 @@ void	get_img_ptr(t_data *data)
 	int		height;
 	int		width;
 
-	height = 64;
-	width = 64;
+	height = 128;
+	width = 128;
 	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_F, &width, &height);
 	img_ptr = swap_img_ptr(img_ptr, &data->img.p_f, data);
 	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_B, &width, &height);
@@ -527,19 +527,19 @@ void	choose_direction(t_data *data, int x, int y)
 	if (!data->game.w_flag && !data->game.s_flag
 		&& !data->game.a_flag && !data->game.d_flag)
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_f, x * 64, y * 64);
+			data->game.win, data->img.p_f, x * 128, y * 128);
 	if (data->game.w_flag)
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_b, x * 64, y * 64);
+			data->game.win, data->img.p_b, x * 128, y * 128);
 	else if (data->game.s_flag)
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_f, x * 64, y * 64);
+			data->game.win, data->img.p_f, x * 128, y * 128);
 	else if (data->game.a_flag)
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_l, x * 64, y * 64);
+			data->game.win, data->img.p_l, x * 128, y * 128);
 	else if (data->game.d_flag)
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.p_r, x * 64, y * 64);
+			data->game.win, data->img.p_r, x * 128, y * 128);
 	data->game.w_flag = 0;
 	data->game.s_flag = 0;
 	data->game.a_flag = 0;
@@ -550,18 +550,18 @@ void	print_image_to_window(t_data *data, int x, int y)
 {
 	if (data->map.grid[y][x] == '1')
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.wall, x * 64, y * 64);
+			data->game.win, data->img.wall, x * 128, y * 128);
 	if (data->map.grid[y][x] == '0')
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.floor, x * 64, y * 64);
+			data->game.win, data->img.floor, x * 128, y * 128);
 	if (data->map.grid[y][x] == 'E')
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.e_c, x * 64, y * 64);
+			data->game.win, data->img.e_c, x * 128, y * 128);
 	if (data->map.grid[y][x] == 'P')
 		choose_direction(data, x, y);
 	if (data->map.grid[y][x] == 'C')
 		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.coin, x * 64, y * 64);
+			data->game.win, data->img.coin, x * 128, y * 128);
 }
 
 int	render(t_data *data)
