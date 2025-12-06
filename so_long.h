@@ -12,7 +12,7 @@
 # define WALL "./textures/final/test_wall.xpm"
 # define COIN "./textures/final/test_coin.xpm"
 # define E_O "./textures/final/temp_ex.xpm"
-# define E_C "./textures/little_knight_left.xpm"
+# define E_C "./textures/final/temp_ex.xpm"
 
 # define ESC 65307
 
