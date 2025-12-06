@@ -6,13 +6,15 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define P_F "./textures/final/walle_front.xpm"
-# define P_B "./textures/final/back_bg.xpm"
-# define FLOOR "./textures/128xf_tile.xpm"
-# define WALL "./textures/final/test_wall.xpm"
-# define COIN "./textures/final/test_coin.xpm"
-# define E_O "./textures/final/temp_ex.xpm"
-# define E_C "./textures/final/temp_ex.xpm"
+# define P_F "./textures/final/player_front.xpm"
+# define P_B "./textures/final/player_back.xpm"
+# define P_L "./textures/final/player_left.xpm"
+# define P_R "./textures/final/player_right.xpm"
+# define FLOOR "./textures/final/floor.xpm"
+# define WALL "./textures/final/wall.xpm"
+# define COIN "./maps/final/test_coin.xpm"
+# define E_O "./maps/final/temp_ex.xpm"
+# define E_C "./textures/little_knight_right.xpm"
 
 # define ESC 65307
 
@@ -34,16 +36,14 @@ typedef struct s_game
 	int		s_flag;
 	int		a_flag;
 	int		d_flag;
-}t_game;
+}	t_game;
 
 typedef struct s_list
 {
-	char	*line;
-	int		len;
-
+	char			*line;
+	int				len;
 	struct s_list	*next;
-}t_list;
-
+}	t_list;
 
 typedef struct s_map
 {
@@ -53,8 +53,7 @@ typedef struct s_map
 	int		count_c;
 	int		count_p;
 	int		count_e;
-}t_map;
-
+}	t_map;
 
 typedef struct s_image
 {
@@ -67,9 +66,7 @@ typedef struct s_image
 	void	*p_b;
 	void	*p_r;
 	void	*p_l;
-
-}t_image;
-
+}	t_image;
 
 typedef struct s_data
 {
@@ -85,8 +82,6 @@ typedef struct s_data
 	int		e_x;
 	int		e_y;
 	int		moves_count;
-
-}t_data;
-
+}	t_data;
 
 #endif

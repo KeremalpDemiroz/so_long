@@ -256,7 +256,6 @@ void	is_it_rectanguler(t_data *data)
 	data->map.x_max = x;
 }
 
-
 void	read_map(t_data *data)
 {
 	char	*line;
@@ -506,9 +505,9 @@ void	get_img_ptr(t_data *data)
 	img_ptr = swap_img_ptr(img_ptr, &data->img.p_f, data);
 	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_B, &width, &height);
 	img_ptr = swap_img_ptr(img_ptr, &data->img.p_b, data);
-	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_F, &width, &height);
+	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_R, &width, &height);
 	img_ptr = swap_img_ptr(img_ptr, &data->img.p_r, data);
-	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_F, &width, &height);
+	img_ptr = mlx_xpm_file_to_image(data->game.mlx, P_L, &width, &height);
 	img_ptr = swap_img_ptr(img_ptr, &data->img.p_l, data);
 	img_ptr = mlx_xpm_file_to_image(data->game.mlx, FLOOR, &width, &height);
 	img_ptr = swap_img_ptr(img_ptr, &data->img.floor, data);
@@ -555,8 +554,14 @@ void	print_image_to_window(t_data *data, int x, int y)
 		mlx_put_image_to_window(data->game.mlx,
 			data->game.win, data->img.floor, x * 128, y * 128);
 	if (data->map.grid[y][x] == 'E')
-		mlx_put_image_to_window(data->game.mlx,
-			data->game.win, data->img.e_c, x * 128, y * 128);
+	{
+		if (data->map.count_c > 0)
+			mlx_put_image_to_window(data->game.mlx,
+				data->game.win, data->img.e_c, x * 128, y * 128);
+		else
+			mlx_put_image_to_window(data->game.mlx,
+				data->game.win, data->img.e_o, x * 128, y * 128);
+	}
 	if (data->map.grid[y][x] == 'P')
 		choose_direction(data, x, y);
 	if (data->map.grid[y][x] == 'C')
