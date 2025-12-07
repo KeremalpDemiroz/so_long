@@ -12,9 +12,9 @@
 # define P_R "./textures/final/player_right.xpm"
 # define FLOOR "./textures/final/floor.xpm"
 # define WALL "./textures/final/wall.xpm"
-# define COIN "./maps/final/test_coin.xpm"
-# define E_O "./maps/final/temp_ex.xpm"
-# define E_C "./textures/little_knight_right.xpm"
+# define COIN "./textures/final/coin.xpm"
+# define E_O "./textures/final/exit_o.xpm"
+# define E_C "./textures/final/exit_c.xpm"
 
 # define ESC 65307
 
