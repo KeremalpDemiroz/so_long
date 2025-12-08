@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_checker.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 17:16:57 by kedemiro          #+#    #+#             */
+/*   Updated: 2025/12/08 17:16:58 by kedemiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	read_map(t_data *data)
@@ -33,14 +45,14 @@ void	check_map_name(t_data *data)
 
 	i = 0;
 	ext = ".ber";
-	if (!data->av[1] || ft_strlen(data->av[1]) < 4)
+	if (!data->map_name || ft_strlen(data->map_name) < 5)
 		print_error("File name doesn't exist", data);
-	while (data->av[1][i])
+	while (data->map_name[i])
 	{
 		j = 0;
-		while (data->av[1][i + j] && ext[j] == data->av[1][i + j])
+		while (data->map_name[i + j] && ext[j] == data->map_name[i + j])
 			j++;
-		if (ext[j] == '\0' && !data->av[1][i + j])
+		if (ext[j] == '\0' && !data->map_name[i + j])
 			return ;
 		i++;
 	}

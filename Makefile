@@ -27,15 +27,18 @@ all:$(NAME)
 $(NAME):$(OBJS)
 	@make -C $(MLX)
 	@make -C $(LIBFT)
-	$(CC) $(CFLAGS) $(MLX_FLAGS) $(SRCS) $(LIBFT_A) -o $(NAME)
+	$(CC) $(CFLAGS) $(SRCS) $(LIBFT_A) $(MLX_FLAGS) -o $(NAME)
 
 clean:
 	@rm -rf $(OBJS)
 	@make clean -C $(LIBFT)
+	@make clean -C $(MLX)
+
 
 fclean:clean
 	@rm -rf $(NAME)
 	@make fclean -C $(LIBFT)
+	@make clean -C $(MLX)
 
 re: fclean all
 

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 17:16:40 by kedemiro          #+#    #+#             */
+/*   Updated: 2025/12/08 17:16:42 by kedemiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	flood_fill(char	**map_copy, int x, int y, t_data *data)
@@ -15,6 +27,10 @@ void	flood_fill(char	**map_copy, int x, int y, t_data *data)
 
 void	start_data(t_data *data, char **av, int ac)
 {
+	char	*tmp_map_name;
+
+	tmp_map_name = ft_strrchr(av[1], '/');
+	data->map_name = tmp_map_name +1;
 	data->av = av;
 	data->ac = ac;
 	data->list = NULL;

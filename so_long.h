@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/12/08 17:17:19 by kedemiro          #+#    #+#             */
+/*   Updated: 2025/12/08 17:17:20 by kedemiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -6,15 +18,15 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-# define P_F "./textures/final/player_front.xpm"
-# define P_B "./textures/final/player_back.xpm"
-# define P_L "./textures/final/player_left.xpm"
-# define P_R "./textures/final/player_right.xpm"
-# define FLOOR "./textures/final/floor.xpm"
-# define WALL "./textures/final/wall.xpm"
-# define COIN "./textures/final/coin.xpm"
-# define E_O "./textures/final/exit_o.xpm"
-# define E_C "./textures/final/exit_c.xpm"
+# define P_F "./textures/player_front.xpm"
+# define P_B "./textures/player_back.xpm"
+# define P_L "./textures/player_left.xpm"
+# define P_R "./textures/player_right.xpm"
+# define FLOOR "./textures/floor.xpm"
+# define WALL "./textures/wall.xpm"
+# define COIN "./textures/coin.xpm"
+# define E_O "./textures/exit_o.xpm"
+# define E_C "./textures/exit_c.xpm"
 
 # define ESC 65307
 
@@ -75,6 +87,7 @@ typedef struct s_data
 	t_image	img;
 	t_list	*list;
 	char	**av;
+	char	*map_name;
 	int		map_fd;
 	int		ac;
 	int		p_x;
