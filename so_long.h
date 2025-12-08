@@ -2,7 +2,7 @@
 # define SO_LONG_H
 
 # include "minilibx-linux/mlx.h"
-# include "sources/libft.h"
+# include "includes/libft.h"
 # include <stdio.h>
 # include <fcntl.h>
 
@@ -83,5 +83,45 @@ typedef struct s_data
 	int		e_y;
 	int		moves_count;
 }	t_data;
+
+void	start_data(t_data *data, char **av, int ac);
+void	start_game_data(t_game *game);
+void	start_map_data(t_map *map);
+void	start_image_data(t_image *img);
+void	check_screen_size(t_data *data);
+void	get_img_ptr(t_data *data);
+void	*swap_img_ptr(void	*img_ptr, void	**img_id, t_data *data);
+void	choose_direction(t_data *data, int x, int y);
+void	print_image_to_window(t_data *data, int x, int y);
+int		render(t_data *data);
+void	flood_fill(char	**map_copy, int x, int y, t_data *data);
+void	check_map(t_data *data);
+void	clean_game_data(t_game *game);
+void	clean_map_data(t_map *map);
+void	clean_image_data(t_image *img);
+void	clean_data(t_data *data);
+void	reinitialize_image(t_data *data);
+void	destroy_images(t_data *data);
+void	clean_exit(t_data *data, char *err_msg);
+int		close_window(void	*param);
+void	read_map(t_data *data);
+void	check_map_name(t_data *data);
+void	is_it_rectanguler(t_data *data);
+void	is_it_surrounded(t_data *data);
+void	is_it_playable(t_data *data);
+void	get_position(t_data *data);
+void	to_the_grid(t_data *data);
+void	check_features(t_data *data);
+char	**create_map_copy(t_data *data);
+void	count_features(char *line, t_data *data, int *flag);
+void	free_node(t_list **list);
+void	add_back(t_list **list, t_list *new);
+int		count_node(t_data *data);
+t_list	*new_node(char *line, int len, t_data *data);
+void	update_map(t_data *data, int old_x, int old_y);
+void	player_move(t_data *data, int keycode);
+int		key_handler(int keycode, void *param);
+void	all_free(char **split);
+void	print_error(char *err_msg, t_data *data);
 
 #endif
