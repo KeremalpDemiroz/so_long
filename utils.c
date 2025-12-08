@@ -15,7 +15,6 @@ void	all_free(char **split)
 	free(split);
 }
 
-
 void	print_error(char *err_msg, t_data *data)
 {
 	clean_data(data);

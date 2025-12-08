@@ -32,5 +32,3 @@ void	start_image_data(t_image *img)
 	img->floor = NULL;
 	img->wall = NULL;
 }
-
-
