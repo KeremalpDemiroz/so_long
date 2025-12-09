@@ -2,6 +2,7 @@ NAME= so_long
 CC= cc
 CFLAGS= -Wall -Werror -Wextra -g
 MLX_FLAGS= -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz
+MLX_GIT = git@github.com:42paris/minilibx-linux.git
 
 SRCS=	so_long.c\
 		clean_data.c\
@@ -40,9 +41,15 @@ fclean:clean
 	@make fclean -C $(LIBFT)
 	@make clean -C $(MLX)
 
+clone:
+	git clone $(MLX_GIT)
+
+remove_clone:$(MLX)
+	rm -rf $(MLX)
+
 re: fclean all
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re clone
 
 #cc -g -std=gnu89 so_long.c sources/libft.a -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz -o so_long
 

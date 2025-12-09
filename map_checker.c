@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:16:57 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 17:16:58 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/12/09 03:51:34 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,11 @@ void	read_map(t_data *data)
 		line = get_next_line(data->map_fd);
 		if (!line)
 			break ;
-		add_back(&data->list, new_node(line, ft_strlen(line), data));
+		add_back(&data->list, new_node(line, data));
 		count_features(line, data, &flag);
+		free(line);
 	}
+	free(line);
 	if (!data->list)
 		print_error("Map file can not be read", data);
 	if (!flag)
@@ -40,10 +42,16 @@ void	read_map(t_data *data)
 void	check_map_name(t_data *data)
 {
 	char	*ext;
+	char	*tmp_map_name;
 	int		i;
 	int		j;
 
 	i = 0;
+	tmp_map_name = ft_strrchr(data->av[1], '/');
+	if (tmp_map_name && tmp_map_name[0])
+		data->map_name = tmp_map_name + 1;
+	else
+		data->map_name = data->av[1];
 	ext = ".ber";
 	if (!data->map_name || ft_strlen(data->map_name) < 5)
 		print_error("File name doesn't exist", data);
@@ -84,13 +92,13 @@ void	is_it_surrounded(t_data *data)
 	i = 0;
 	while (i < data->map.y_max)
 	{
-		check = ft_strtrim(data->map.grid[i], "1\n");
+		check = ft_strtrim(data->map.grid[i], "1");
 		if ((i == 0 || i == data->map.y_max -1) && check[0])
 		{
 			free(check);
 			print_error("Map is not surrounded by walls", data);
 		}
-		else if ((int)ft_strlen(check) > data->map.x_max -3)
+		else if ((int)ft_strlen(check) > data->map.x_max -2)
 		{
 			free(check);
 			print_error("Map is not surrounded by walls", data);

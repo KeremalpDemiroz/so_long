@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:17:05 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 17:17:06 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/12/08 23:22:30 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,17 @@ int	count_node(t_data *data)
 	return (i);
 }
 
-t_list	*new_node(char *line, int len, t_data *data)
+t_list	*new_node(char *line, t_data *data)
 {
 	t_list	*node;
+	char	*tmp;
 
 	node = malloc(sizeof(t_list));
 	if (!node)
 		print_error("Map file can not be read", data);
-	node->line = line;
-	node->len = len;
+	tmp = ft_strtrim(line, "\n");
+	node->line = tmp;
+	node->len = ft_strlen(tmp);
 	node->next = NULL;
 	return (node);
 }

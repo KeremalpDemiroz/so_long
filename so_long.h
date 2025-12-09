@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:17:19 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 17:17:20 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/12/08 23:05:54 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	count_features(char *line, t_data *data, int *flag);
 void	free_node(t_list **list);
 void	add_back(t_list **list, t_list *new);
 int		count_node(t_data *data);
-t_list	*new_node(char *line, int len, t_data *data);
+t_list	*new_node(char *line, t_data *data);
 void	update_map(t_data *data, int old_x, int old_y);
 void	player_move(t_data *data, int keycode);
 int		key_handler(int keycode, void *param);

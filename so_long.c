@@ -6,7 +6,7 @@
 /*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/08 17:16:40 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 17:16:42 by kedemiro         ###   ########.fr       */
+/*   Updated: 2025/12/09 03:20:34 by kedemiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ void	flood_fill(char	**map_copy, int x, int y, t_data *data)
 
 void	start_data(t_data *data, char **av, int ac)
 {
-	char	*tmp_map_name;
-
-	tmp_map_name = ft_strrchr(av[1], '/');
-	data->map_name = tmp_map_name +1;
+	data->map_name = NULL;
 	data->av = av;
 	data->ac = ac;
 	data->list = NULL;
@@ -43,8 +40,8 @@ void	start_data(t_data *data, char **av, int ac)
 
 void	check_map(t_data *data)
 {
-	if (data->ac > 2)
-		print_error("2 or more maps in arguments", data);
+	if (data->ac != 2)
+		print_error("Format must be like ./so_long <map.ber>", data);
 	check_map_name(data);
 	read_map(data);
 	is_it_rectanguler(data);
@@ -54,7 +51,7 @@ void	check_map(t_data *data)
 	get_position(data);
 	is_it_playable(data);
 	data->game.height = (data->map.y_max) * 128;
-	data->game.width = (data->map.x_max - 1) * 128;
+	data->game.width = (data->map.x_max) * 128;
 }
 
 void	check_screen_size(t_data *data)
