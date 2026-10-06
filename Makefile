@@ -1,6 +1,6 @@
 NAME= so_long
 CC= cc
-CFLAGS= -Wall -Werror -Wextra -g
+CFLAGS= -Wall -Werror -Wextra -g -std=gnu99
 MLX_FLAGS= -Lminilibx-linux -lmlx_Linux -L/usr/lib -Iminilibx-linux -lXext -lX11 -lm -lz
 MLX_GIT = git@github.com:42paris/minilibx-linux.git
 

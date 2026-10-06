@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 17:17:19 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 23:05:54 by kedemiro         ###   ########.fr       */
+/*                                                          :::      :::::::: */
+/*   so_long.h                                            :+:      :+:    :+: */
+/*                                                      +:+ +:+         +:+   */
+/*   By: kedemiro <kedemiro@student.42istanbul.com.tr +#+  +:+       +#+      */
+/*                                                  +#+#+#+#+#+   +#+         */
+/*   Created: 2025/12/08 17:17:19 by kedemiro            #+#    #+#           */
+/*   Updated: 2026/10/06 22:42:52 by kedemiro           ###   ########.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	get_img_ptr(t_data *data);
 void	*swap_img_ptr(void	*img_ptr, void	**img_id, t_data *data);
 void	choose_direction(t_data *data, int x, int y);
 void	print_image_to_window(t_data *data, int x, int y);
-int		render(t_data *data);
+int		render(void *param);
 void	flood_fill(char	**map_copy, int x, int y, t_data *data);
 void	check_map(t_data *data);
 void	clean_game_data(t_game *game);

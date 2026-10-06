@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kedemiro <kedemiro@student.42istanbul.com. +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/12/08 17:17:12 by kedemiro          #+#    #+#             */
-/*   Updated: 2025/12/08 17:17:13 by kedemiro         ###   ########.fr       */
+/*                                                          :::      :::::::: */
+/*   render.c                                             :+:      :+:    :+: */
+/*                                                      +:+ +:+         +:+   */
+/*   By: kedemiro <kedemiro@student.42istanbul.com.tr +#+  +:+       +#+      */
+/*                                                  +#+#+#+#+#+   +#+         */
+/*   Created: 2025/12/08 17:17:12 by kedemiro            #+#    #+#           */
+/*   Updated: 2026/10/06 22:43:18 by kedemiro           ###   ########.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,12 +96,13 @@ void	print_image_to_window(t_data *data, int x, int y)
 			data->game.win, data->img.coin, x * 128, y * 128);
 }
 
-int	render(t_data *data)
+int	render(void *param)
 {
 	int	x;
 	int	y;
 
 	y = 0;
+	t_data *data = param;
 	while (y < data->map.y_max)
 	{
 		x = 0;
